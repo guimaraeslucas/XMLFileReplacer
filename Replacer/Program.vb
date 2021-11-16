@@ -72,6 +72,17 @@ Module Program
                             'Replace the tag
                             sStoreFile = sStoreFile.Replace(oFileNode.SelectSingleNode("tag").InnerText, sStoreInclude)
                         Next
+                        Try
+                            For Each oFileNode As XmlNode In oSingleTemplateNode.SelectNodes("merger/strings/string")
+                                DisplayInfo("Working on tag/text: " & oFileNode.SelectSingleNode("tag").InnerText & " - " & oFileNode.SelectSingleNode("link").InnerText)
+                                'Read string from file
+                                sStoreInclude = oFileNode.SelectSingleNode("text").InnerText
+                                'Replace the tag
+                                sStoreFile = sStoreFile.Replace(oFileNode.SelectSingleNode("tag").InnerText, sStoreInclude)
+                            Next
+                        Catch ex As Exception
+                            DisplayInfo("String tag exception")
+                        End Try
                         'Writes the file into directory, check if it exists first.
                         If IO.Directory.Exists(sWorkingDir) = False Then
                             IO.Directory.CreateDirectory(sWorkingDir)

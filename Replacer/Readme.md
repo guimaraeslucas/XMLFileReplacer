@@ -1,6 +1,7 @@
 ﻿LG Replacer
 ---
 Replaces a string or tag in a text file with a file content or a fixed string and output to a new one or to the same file, using a xml file as reference.
+Requires .NET 6.0, but can be backported to .NET Framework if needed. 
 
 ---
 
