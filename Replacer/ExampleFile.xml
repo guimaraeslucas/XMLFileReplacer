@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--CONFIGURATION FILE-->
+<lgreplacer>
+	<fileinfo>
+		<desc>Junta todos os arquivos Do PED como um só</desc> <!-- Description -->
+		<author>LucasGuimarães</author> <!-- Author -->
+		<copyright>(C)2017 - LucasGuimaraes.com</copyright> <!-- Copyright info -->
+		<packname>lgped.lgvirtual.com</packname> <!-- Package name -->
+	</fileinfo>
+	<templates>
+		<template>
+			<name>index.htm</name> <!-- Name of the output file -->
+			<mainfile>C:\Users\lucas\Desktop\Receitas\ped\index.htm</mainfile> <!-- File that will be used as template -->
+			<outputdir>C:\Users\lucas\Desktop\Receitas\ped\rendered\</outputdir> <!-- Output dir -->
+			<merger>
+				<files> <!-- Tags to search and replace with file contents -->
+					<file>
+						<tag><![CDATA[/*miligram*/]]></tag> <!-- tag to replace -->
+						<link>C:\Users\lucas\Desktop\Receitas\ped\includes\miligram.txt</link> <!-- File to use -->
+					</file>
+					<file>
+						<tag><![CDATA[/*test*/]]></tag>
+						<!-- tag to replace -->
+						<link>C:\Users\lucas\Desktop\Receitas\ped\includes\test.txt</link>
+						<!-- File to use -->
+					</file>
+				</files>
+				<strings>
+					<string>
+					<tag><![CDATA[/*text*/]]></tag>	<!-- tag to replace -->
+					<text><![CDATA[REPLACED TEXT]]></text> <!-- fixed string -->
+					</string>
+				</strings>
+			</merger>
+		</template>
+	</templates>
+</lgreplacer>

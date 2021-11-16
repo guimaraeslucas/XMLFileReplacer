@@ -175,6 +175,10 @@ End Module
 '<link> C : \Users\lucas\Desktop\Receitas\ped\includes\miligram.txt</link>
 '</file>
 '</files>
+'<text>
+'<tag><![CDATA[/*text*/]]></tag>
+'<string><![CDATA[REPLACED TEXT]]></string>
+'</text>
 '</merger>
 '</template>
 '</templates>
