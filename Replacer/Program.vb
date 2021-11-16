@@ -153,33 +153,3 @@ Module Program
     End Sub
 
 End Module
-'Example file
-'<?xml version="1.0" encoding="utf-8"?>
-'<!--CONFIGURATION FILE-->
-'<lgreplacer>
-'<fileinfo>
-'<desc> Junta todos os arquivos Do PED como um só</desc>
-'<author> LucasGuimarães</author>
-'<copyright>(C)2017 - LucasGuimaraes.com</copyright>
-'<packname> http : //lgvirtual.com/lgped</packname>
-'</fileinfo>
-'<templates>
-'<template>
-'<name> index.htm</name>
-'<mainfile> C : \Users\lucas\Desktop\Receitas\ped\index.htm</mainfile>
-'<outputdir> C : \Users\lucas\Desktop\Receitas\ped\rendered\</outputdir>
-'<merger>
-'<files>
-'<file>
-'<tag><![CDATA[/*miligram*/]]></tag>
-'<link> C : \Users\lucas\Desktop\Receitas\ped\includes\miligram.txt</link>
-'</file>
-'</files>
-'<text>
-'<tag><![CDATA[/*text*/]]></tag>
-'<string><![CDATA[REPLACED TEXT]]></string>
-'</text>
-'</merger>
-'</template>
-'</templates>
-'</lgreplacer>
