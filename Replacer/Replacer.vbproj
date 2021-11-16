@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Replacer</RootNamespace>
+    <TargetFramework>net6.0</TargetFramework>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+	  <ApplicationVersion>1.0</ApplicationVersion>
+	  <ApplicationVisualStyles>true</ApplicationVisualStyles>
+	  <AssemblyName>ReplacerLG</AssemblyName>
+	  <AssemblyTitle>ReplacerLG</AssemblyTitle>
+	  <AssemblyVersion>1.0</AssemblyVersion>
+	  <Authors>Lucas Guimarães</Authors>
+	  <Company>3GPIX LTDA</Company>
+	  <Copyright>3GPIX LTDA</Copyright>
+	  <StartupObject>Replacer.Program</StartupObject>
+	  <ApplicationIcon>Icon1.ico</ApplicationIcon>
+	  <SignAssembly>false</SignAssembly>
+	  <DelaySign>false</DelaySign>
+  </PropertyGroup>
+
+</Project>
