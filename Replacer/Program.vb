@@ -16,6 +16,7 @@ Module Program
         Console.CursorVisible = True
         DefaultColor()
         Console.Clear()
+
         'Start App      
         Console.ForegroundColor = ConsoleColor.White
         Console.BackgroundColor = ConsoleColor.DarkBlue
@@ -27,12 +28,13 @@ Module Program
         DisplayInfo("App running at " & Reflection.Assembly.GetExecutingAssembly().Location)
         'Get command line arguments
         Dim sCommandLineArguments As String() = Environment.GetCommandLineArgs()
+
         'Config file set, try to open and read it
         If sCommandLineArguments.Length > 1 Then
 
             sFileToProcess = sCommandLineArguments(1)
 
-            'Try to open and read file
+            'Try to open and process file and xml
             Try
                 DisplayAction("Trying to open file " & sFileToProcess)
                 Dim xmlDoc As New XmlDocument()
@@ -53,24 +55,24 @@ Module Program
                     DisplayInfo("Template tag not found")
                 Else
                     For Each oSingleTemplateNode As XmlNode In oTemplate
-                        'Le os itens do template inicial
+                        'Read the template
                         sTemplateName = oSingleTemplateNode.SelectSingleNode("name").InnerText
                         sTemplateFileName = oSingleTemplateNode.SelectSingleNode("mainfile").InnerText
                         sWorkingDir = oSingleTemplateNode.SelectSingleNode("outputdir").InnerText
-                        'Informa que vai ler
+                        'Display the template file name
                         DisplayAction("Reading Template: " & sTemplateFileName)
                         sStoreFile = System.IO.File.ReadAllText(sTemplateFileName, Text.Encoding.UTF8)
-                        'Onde iremos salvar
+                        'Display the output file name
                         DisplayAction("Output to: " & sWorkingDir & sTemplateName)
-                        'Para cada tag file, abra o arquivo, leia e substitua no template
+                        'For each tag, open a file and replace it
                         For Each oFileNode As XmlNode In oSingleTemplateNode.SelectNodes("merger/files/file")
                             DisplayInfo("Working on tag/file: " & oFileNode.SelectSingleNode("tag").InnerText & " - " & oFileNode.SelectSingleNode("link").InnerText)
-                            'Arquivo a abrir
+                            'Read text from file
                             sStoreInclude = System.IO.File.ReadAllText(oFileNode.SelectSingleNode("link").InnerText, Text.Encoding.UTF8)
-                            'Substituir tag
+                            'Replace the tag
                             sStoreFile = sStoreFile.Replace(oFileNode.SelectSingleNode("tag").InnerText, sStoreInclude)
                         Next
-                        'Escreve o arquivo final definido no node, se o diretório não existir cria antes de escrever
+                        'Writes the file into directory, check if it exists first.
                         If IO.Directory.Exists(sWorkingDir) = False Then
                             IO.Directory.CreateDirectory(sWorkingDir)
                         End If
@@ -78,21 +80,21 @@ Module Program
                         DisplayInfo("Merge complete: " & sWorkingDir & sTemplateName)
                     Next
                 End If
-                'Presumimos que tudo foi OK 
+                'Done
                 DisplaySuccess("All done.")
 
             Catch ex As Exception
-                ' Could Not open Or process file
+                ' Couldn't open or process file
                 DisplayError(ex.Message)
             End Try
 
         Else
             'Oops, config file not set
-            DisplayError("Config file is not set. Quitting app...")
+            DisplayError("Config file is not set. Quitting...")
 
         End If
 
-        'Encerra o programa
+        'Ends the program - for .NET 4.0 edition
         If bDebug = True Then
             Console.ForegroundColor = ConsoleColor.DarkGray
             Console.WriteLine("-- DEBUG: Press any key to continue... --")
@@ -101,44 +103,60 @@ Module Program
 
     End Sub
 
+    ''' <summary>
+    ''' Display an Error
+    ''' </summary>
+    ''' <param name="sError">String</param>
     Sub DisplayError(sError As String)
         Console.Beep(1050, 200)
         Console.ForegroundColor = ConsoleColor.White
         Console.BackgroundColor = ConsoleColor.Red
-        Console.Write("ERROR:")
+        Console.Write("!ERROR:")
         Console.WriteLine(sError)
         Console.BackgroundColor = CurrentColor
 
         DefaultColor()
     End Sub
-
+    ''' <summary>
+    ''' Display a message
+    ''' </summary>
+    ''' <param name="sMessage">String</param>
     Sub DisplayInfo(sMessage As String)
         Console.ForegroundColor = ConsoleColor.Cyan
-        Console.WriteLine("INFO: " & sMessage)
+        Console.WriteLine("*INFO: " & sMessage)
         DefaultColor()
     End Sub
-
+    ''' <summary>
+    ''' Display a program action
+    ''' </summary>
+    ''' <param name="sMessage"></param>
     Sub DisplayAction(sMessage As String)
         Console.ForegroundColor = ConsoleColor.DarkYellow
         Console.WriteLine("+ " & sMessage)
         DefaultColor()
     End Sub
-
+    ''' <summary>
+    ''' Display a success message
+    ''' </summary>
+    ''' <param name="sMessage"></param>
     Sub DisplaySuccess(sMessage As String)
         Console.ForegroundColor = ConsoleColor.Green
-        Console.WriteLine("SUCCESS: " & sMessage)
+        Console.WriteLine("#SUCCESS: " & sMessage)
         DefaultColor()
     End Sub
-
+    ''' <summary>
+    ''' Resets the console color
+    ''' </summary>
     Sub DefaultColor()
         Console.BackgroundColor = ConsoleColor.Black
         Console.ForegroundColor = ConsoleColor.Gray
     End Sub
 
 End Module
+'Example file
 '<?xml version="1.0" encoding="utf-8"?>
-'<!--INTELIMERGER CONFIGURATION FILE-->
-'<intellimerger>
+'<!--CONFIGURATION FILE-->
+'<lgreplacer>
 '<fileinfo>
 '<desc> Junta todos os arquivos Do PED como um só</desc>
 '<author> LucasGuimarães</author>
@@ -160,4 +178,4 @@ End Module
 '</merger>
 '</template>
 '</templates>
-'</intellimerger>
+'</lgreplacer>
