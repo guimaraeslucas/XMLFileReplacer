@@ -25,7 +25,7 @@ Module Program
         Console.WriteLine("---" & Environment.NewLine)
 
         'Display where we are running
-        DisplayInfo("App running at " & Reflection.Assembly.GetExecutingAssembly().Location)
+        DisplayInfo("App location: " & Reflection.Assembly.GetExecutingAssembly().Location)
         'Get command line arguments
         Dim sCommandLineArguments As String() = Environment.GetCommandLineArgs()
 
