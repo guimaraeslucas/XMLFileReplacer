@@ -43,12 +43,15 @@ Module Program
                 DisplayAction("Getting info")
                 Console.WriteLine("----------------")
                 Dim oFileInfo As XmlNode = xmlDoc.DocumentElement.SelectSingleNode("fileinfo")
+                If oFileInfo.HasChildNodes = False Then
+                    DisplayError("Error reading config file, is it a valid file?")
+                End If
                 DisplayInfo(oFileInfo.SelectSingleNode("desc").InnerText)
                 DisplayInfo(oFileInfo.SelectSingleNode("author").InnerText)
                 DisplayInfo(oFileInfo.SelectSingleNode("copyright").InnerText)
                 DisplayInfo(oFileInfo.SelectSingleNode("packname").InnerText)
                 Console.WriteLine("----------------")
-                DisplayAction("Searching templates")
+                DisplayAction("Searching templates tag")
                 Dim oTemplate As XmlNodeList = xmlDoc.DocumentElement.SelectNodes("templates/template")
                 Dim sTemplateFileName, sTemplateName, sWorkingDir As String
                 If oTemplate.Count = 0 Then
@@ -60,7 +63,7 @@ Module Program
                         sTemplateFileName = oSingleTemplateNode.SelectSingleNode("mainfile").InnerText
                         sWorkingDir = oSingleTemplateNode.SelectSingleNode("outputdir").InnerText
                         'Display the template file name
-                        DisplayAction("Reading Template: " & sTemplateFileName)
+                        DisplayAction("Reading template: " & sTemplateFileName)
                         sStoreFile = System.IO.File.ReadAllText(sTemplateFileName, Text.Encoding.UTF8)
                         'Display the output file name
                         DisplayAction("Output to: " & sWorkingDir & sTemplateName)
@@ -92,7 +95,7 @@ Module Program
                     Next
                 End If
                 'Done
-                DisplaySuccess("All done.")
+                DisplaySuccess("Job ended.")
 
             Catch ex As Exception
                 ' Couldn't open or process file
@@ -101,7 +104,7 @@ Module Program
 
         Else
             'Oops, config file not set
-            DisplayError("Config file is not set. Quitting...")
+            DisplayError("XML Config file is not set. Quitting...")
 
         End If
 
@@ -122,7 +125,7 @@ Module Program
         Console.Beep(1050, 200)
         Console.ForegroundColor = ConsoleColor.White
         Console.BackgroundColor = ConsoleColor.Red
-        Console.Write("!ERROR:")
+        Console.Write("!ERROR: ")
         Console.WriteLine(sError)
         Console.BackgroundColor = CurrentColor
 
