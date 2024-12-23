@@ -5,7 +5,7 @@ Requires .NET 6.0, but can be backported to .NET Framework if needed.
 
 ---
 
-Copyright <2022> <copyright Lucas Guimarães - lucas@3gpix.com>
+Copyright <2022> <copyright Lucas Guimarães - lucas@3gpix.com.br>
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
